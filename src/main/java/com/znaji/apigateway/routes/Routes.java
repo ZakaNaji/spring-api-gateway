@@ -2,6 +2,8 @@ package com.znaji.apigateway.routes;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.web.servlet.function.RequestPredicate;
+import org.springframework.web.servlet.function.RequestPredicates;
 import org.springframework.web.servlet.function.RouterFunction;
 import org.springframework.web.servlet.function.ServerResponse;
 
@@ -13,8 +15,7 @@ public class Routes {
     @Bean
     public RouterFunction<ServerResponse> productServiceRoute() {
         return route("product-service")
-                .route(r -> r.path().equals("/api/products"), http("http://localhost:8080"))
+                .route(RequestPredicates.path("/api/products/**"), http("http://localhost:8080"))
                 .build();
-
     }
 }
